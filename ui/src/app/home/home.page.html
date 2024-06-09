@@ -1,8 +1,10 @@
 <ion-content>
   <div class="centered">
     <div class="content">
-      <div class="image"></div>
-      <div class="supporting" *ngIf="supporting_details"></div>
+      <div class="image">
+        <img [src]="'assets/' + imageFilename + '.png'" />
+      </div>
+      <div class="supporting" *ngIf="supportingDetails"></div>
       <div class="main"></div>
     </div>
   </div>
