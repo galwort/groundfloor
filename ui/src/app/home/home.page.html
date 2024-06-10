@@ -7,7 +7,12 @@
       <div class="supporting" *ngIf="supportingDetails"></div>
       <div class="main">
         <p>{{ dialogue }}</p>
-        <ion-input type="text"></ion-input>
+        <ion-input
+          fill="outline"
+          type="text"
+          [(ngModel)]="inputText"
+        ></ion-input>
+        <ion-button color="dark" (click)="onSubmit()">Submit</ion-button>
       </div>
     </div>
   </div>

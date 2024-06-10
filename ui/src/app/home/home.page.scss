@@ -47,7 +47,11 @@ ion-content {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         height: fit-content;
         width: fit-content;
-        padding: 18px;
+        padding: 25px;
+
+        ion-button {
+          padding-top: 20px;
+        }
       }
     }
   }

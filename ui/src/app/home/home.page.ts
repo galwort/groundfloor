@@ -9,6 +9,11 @@ export class HomePage {
   imageFilename = 'bricks';
   supportingDetails = false;
   dialogue = "What's your company's name?";
+  inputText = '';
 
   constructor() {}
+
+  onSubmit() {
+    this.inputText = '';
+  }
 }
