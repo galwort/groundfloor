@@ -21,7 +21,7 @@ ion-content {
       .image {
         border-radius: 15px;
         background-color: #222;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         width: fit-content;
         height: fit-content;
 
@@ -33,13 +33,13 @@ ion-content {
       .supporting {
         border-radius: 15px;
         background-color: #222;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
       }
 
       .main {
         border-radius: 15px;
         background-color: #222;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         height: fit-content;
         width: fit-content;
         max-width: 500px;
