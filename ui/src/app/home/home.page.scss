@@ -11,6 +11,7 @@ ion-content {
     .content {
       background-color: transparent;
       display: grid;
+      grid-template-rows: auto 1fr;
       gap: 20px;
       padding: 40px;
       width: 80%;
@@ -22,6 +23,12 @@ ion-content {
         grid-column: 1 / 2;
         background-color: #222;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: fit-content;
+        height: fit-content;
+
+        img {
+          max-width: 500px;
+        }
       }
 
       .supporting {
