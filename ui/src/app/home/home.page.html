@@ -14,7 +14,12 @@
           (keydown.enter)="onButtonClick()"
           [(ngModel)]="inputText"
         ></ion-input>
-        <ion-button color="dark" (click)="onButtonClick()"
+        <div *ngIf="jobTitles.length > 0">
+          <ul>
+            <li *ngFor="let job of jobTitles">{{ job }}</li>
+          </ul>
+        </div>
+        <ion-button *ngIf="showButton" color="dark" (click)="onButtonClick()"
           >{{ buttonLabel }}</ion-button
         >
       </div>
