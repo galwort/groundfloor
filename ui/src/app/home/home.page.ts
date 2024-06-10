@@ -6,8 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  supportingDetails = false;
   imageFilename = 'bricks';
+  supportingDetails = false;
+  dialogue = "What's your company's name?";
 
   constructor() {}
 }

@@ -5,7 +5,10 @@
         <img [src]="'assets/' + imageFilename + '.png'" />
       </div>
       <div class="supporting" *ngIf="supportingDetails"></div>
-      <div class="main"></div>
+      <div class="main">
+        <p>{{ dialogue }}</p>
+        <ion-input type="text"></ion-input>
+      </div>
     </div>
   </div>
 </ion-content>
