@@ -1,5 +1,5 @@
 import azure.functions as func
-from json import dumps
+from json import dumps, loads
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 from openai import OpenAI
@@ -12,7 +12,7 @@ client = OpenAI(api_key=secret_client.get_secret("OAIKey").value)
 
 def gen_jobs(company_description):
     system_message = (
-        "You are a food name summarizer. "
+        "You are a job title generator. "
         + "When given a description of a company, "
         + "your job is to reply with a list of job titles "
         + "that the company should hire for. "
@@ -30,7 +30,7 @@ def gen_jobs(company_description):
         messages=messages,
     )
 
-    jobs = response.choices[0].message.content["jobs"]
+    jobs = loads(response.choices[0].message.content)["jobs"]
 
     return jobs
 
