@@ -10,10 +10,21 @@ export class HomePage {
   supportingDetails = false;
   dialogue = "What's your company's name?";
   inputText = '';
+  companyName = '';
+  questionIndex = 0;
 
   constructor() {}
 
   onSubmit() {
-    this.inputText = '';
+    if (this.questionIndex === 0) {
+      this.companyName = this.inputText;
+      this.dialogue = `What does ${this.companyName} do?`;
+      this.inputText = '';
+      this.questionIndex++;
+    } else {
+      console.log(
+        `Company Name: ${this.companyName}, Company Description: ${this.inputText}`
+      );
+    }
   }
 }
