@@ -4,15 +4,18 @@
       <div class="image">
         <img [src]="'assets/' + imageFilename + '.png'" />
       </div>
-      <div class="supporting" *ngIf="supportingDetails"></div>
+      <div class="supporting" *ngIf="showSupportingDetails"></div>
       <div class="main">
         <p>{{ dialogue }}</p>
         <ion-input
+          *ngIf="showTextInput"
           fill="outline"
           type="text"
           [(ngModel)]="inputText"
         ></ion-input>
-        <ion-button color="dark" (click)="onSubmit()">Submit</ion-button>
+        <ion-button color="dark" (click)="onButtonClick()"
+          >{{ buttonLabel }}</ion-button
+        >
       </div>
     </div>
   </div>
