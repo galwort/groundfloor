@@ -11,6 +11,7 @@
           *ngIf="showTextInput"
           fill="outline"
           type="text"
+          (keydown.enter)="onButtonClick()"
           [(ngModel)]="inputText"
         ></ion-input>
         <ion-button color="dark" (click)="onButtonClick()"
