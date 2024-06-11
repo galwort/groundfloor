@@ -17,6 +17,7 @@ export class HomePage {
   companyName = 'your company';
   companyDescription = 'nothing';
   jobTitles: string[] = [];
+  selectedJobTitles: { [key: string]: number } = {};
 
   questionIndex = 0;
   dialogue =
@@ -45,6 +46,12 @@ export class HomePage {
         this.showTextInput = false;
         break;
       case 3:
+        this.jobTitles = [];
+        this.showButton = false;
+        this.collectJobTitles();
+        this.startInterviewProcess();
+        break;
+      case 4:
         this.dialogue =
           'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
         this.jobTitles = [];
@@ -71,6 +78,43 @@ export class HomePage {
         console.error('Error generating job titles:', error);
         this.dialogue =
           'There was an error generating job titles. Please try again.';
+      }
+    );
+  }
+
+  collectJobTitles() {
+    const inputs = document.querySelectorAll('ion-input[type="number"]');
+    inputs.forEach((input: any, index) => {
+      const jobTitle = this.jobTitles[index];
+      const count = parseInt(input.value, 10) || 0;
+      if (count > 0) {
+        this.selectedJobTitles[jobTitle] = count;
+      }
+    });
+  }
+
+  startInterviewProcess() {
+    const jobTitle = Object.keys(this.selectedJobTitles)[0];
+    this.dialogue = `Interviewing potential ${jobTitle}s...`;
+    this.generateJobSkills(jobTitle);
+  }
+
+  generateJobSkills(jobTitle: string) {
+    const url = 'https://fa-groundfloor.azurewebsites.net/api/skills';
+    const body = { job_title: jobTitle };
+
+    this.http.post<{ skills: string[] }>(url, body).subscribe(
+      (response) => {
+        this.dialogue = `The skills required for ${jobTitle} are: ${response.skills.join(
+          ', '
+        )}`;
+        this.showButton = true;
+        this.buttonLabel = 'Next';
+      },
+      (error) => {
+        console.error('Error generating job skills:', error);
+        this.dialogue =
+          'There was an error generating job skills. Please try again.';
       }
     );
   }
