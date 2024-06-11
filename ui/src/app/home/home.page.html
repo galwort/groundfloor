@@ -31,17 +31,18 @@
           (keydown.enter)="onButtonClick($event)"
           [(ngModel)]="inputText"
         ></ion-textarea>
-        <div *ngIf="jobTitles.length > 0">
-          <ion-item *ngFor="let job of jobTitles; let i = index">
+        <div *ngIf="list.length > 0">
+          <ion-item *ngFor="let item of list; let i = index">
             <ion-input
+              *ngIf="showListInput"
               fill="outline"
               type="number"
               placeholder="0"
               min="0"
               max="100"
-              [(ngModel)]="selectedJobTitles[job]"
+              [(ngModel)]="selectedJobTitles[item]"
             ></ion-input>
-            <ion-text>{{ job }}</ion-text>
+            <ion-text>{{ item }}</ion-text>
           </ion-item>
         </div>
         <ion-button

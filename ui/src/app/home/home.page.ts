@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage {
   showSupportingDetails = false;
   showTextInput = false;
+  showListInput = true;
   showButton = true;
 
   buttonLabel = 'Start';
@@ -16,7 +17,7 @@ export class HomePage {
   inputText = '';
   companyName = 'your company';
   companyDescription = 'nothing';
-  jobTitles: string[] = [];
+  list: string[] = [];
   selectedJobTitles: { [key: string]: number } = {};
 
   questionIndex = 0;
@@ -47,7 +48,7 @@ export class HomePage {
         this.showTextInput = false;
         break;
       case 3:
-        this.jobTitles = [];
+        this.list = [];
         this.showButton = false;
         this.collectJobTitles();
         this.startInterviewProcess();
@@ -55,7 +56,7 @@ export class HomePage {
       case 4:
         this.dialogue =
           'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
-        this.jobTitles = [];
+        this.list = [];
         this.questionIndex = -1;
         this.showTextInput = false;
         this.buttonLabel = 'Start';
@@ -70,7 +71,7 @@ export class HomePage {
 
     this.http.post<{ jobs: string[] }>(url, body).subscribe(
       (response) => {
-        this.jobTitles = response.jobs;
+        this.list = response.jobs;
         this.dialogue = `Which positions would you like to hire for?`;
         this.showButton = true;
         this.buttonLabel = 'Interview';
@@ -86,7 +87,7 @@ export class HomePage {
   collectJobTitles() {
     const inputs = document.querySelectorAll('ion-input[type="number"]');
     inputs.forEach((input: any, index) => {
-      const jobTitle = this.jobTitles[index];
+      const jobTitle = this.list[index];
       const count = parseInt(input.value, 10) || 0;
       if (count > 0) {
         this.selectedJobTitles[jobTitle] = count;
@@ -128,7 +129,7 @@ export class HomePage {
     this.inputText = '';
     this.companyName = 'your company';
     this.companyDescription = 'nothing';
-    this.jobTitles = [];
+    this.list = [];
     this.questionIndex = 0;
     this.dialogue =
       'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
