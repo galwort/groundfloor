@@ -30,8 +30,6 @@ ion-content {
       align-items: center;
       gap: 20px;
       padding: 40px;
-      width: 80%;
-      height: 80%;
 
       .image,
       .supporting,
@@ -42,6 +40,7 @@ ion-content {
         width: fit-content;
         height: fit-content;
         text-align: center;
+        max-width: min(85vw, 500px);
         padding: 25px;
 
         ion-item {
@@ -60,8 +59,10 @@ ion-content {
       }
 
       .image {
+        padding: 0;
+
         img {
-          max-width: 500px;
+          max-width: min(85vw, 500px);
         }
       }
 
