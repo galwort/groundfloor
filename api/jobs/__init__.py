@@ -16,6 +16,7 @@ def gen_jobs(company_description):
         + "When given a description of a company, "
         + "your job is to reply with a list of job titles "
         + "that the company should hire for. "
+        + "You should generate no more than 8 job titles. "
         + "Reply in JSON format with the word 'jobs' as the key, "
         + "and the job titles as a list of strings as the value."
     )
