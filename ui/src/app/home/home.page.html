@@ -15,9 +15,10 @@
           [(ngModel)]="inputText"
         ></ion-input>
         <div *ngIf="jobTitles.length > 0">
-          <ul>
-            <li *ngFor="let job of jobTitles">{{ job }}</li>
-          </ul>
+          <ion-item *ngFor="let job of jobTitles">
+            <ion-input fill="outline" type="number"></ion-input>
+            <ion-text>{{ job }}</ion-text>
+          </ion-item>
         </div>
         <ion-button *ngIf="showButton" color="dark" (click)="onButtonClick()"
           >{{ buttonLabel }}</ion-button
