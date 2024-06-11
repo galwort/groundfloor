@@ -17,7 +17,7 @@
   </ion-header>
   <div class="centered">
     <div class="content">
-      <div class="image">
+      <div class="image" *ngIf="showImage">
         <img [src]="'assets/' + imageFilename + '.png'" />
       </div>
       <div class="supporting" *ngIf="showSupportingDetails"></div>

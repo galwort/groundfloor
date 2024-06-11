@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  showImage = true;
   showSupportingDetails = false;
   showTextInput = false;
   showListInput = true;
@@ -30,6 +31,7 @@ export class HomePage {
     event.preventDefault();
     switch (this.questionIndex) {
       case 0:
+        this.showImage = false;
         this.dialogue = "What's your company's name?";
         this.showTextInput = true;
         this.buttonLabel = 'Next';
