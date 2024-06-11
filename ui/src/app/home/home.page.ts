@@ -56,6 +56,8 @@ export class HomePage {
         this.startInterviewProcess();
         break;
       case 4:
+        this.showImage = true;
+        this.showButton = false;
         this.dialogue =
           'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
         this.list = [];
@@ -128,6 +130,7 @@ export class HomePage {
   }
 
   refresh() {
+    this.showImage = true;
     this.inputText = '';
     this.companyName = 'your company';
     this.companyDescription = 'nothing';
