@@ -15,7 +15,7 @@ export class HomePage {
   imageFilename = 'bricks';
   inputText = '';
   companyName = 'your company';
-  companyDescription = '';
+  companyDescription = 'nothing';
   jobTitles: string[] = [];
 
   questionIndex = 0;
@@ -80,8 +80,9 @@ export class HomePage {
   }
 
   refresh() {
+    this.inputText = '';
     this.companyName = 'your company';
-    this.companyDescription = '';
+    this.companyDescription = 'nothing';
     this.jobTitles = [];
     this.questionIndex = 0;
     this.dialogue =
