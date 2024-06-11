@@ -26,7 +26,13 @@
         ></ion-input>
         <div *ngIf="jobTitles.length > 0">
           <ion-item *ngFor="let job of jobTitles">
-            <ion-input fill="outline" type="number"></ion-input>
+            <ion-input
+              fill="outline"
+              type="number"
+              placeholder="0"
+              min="0"
+              max="100"
+            ></ion-input>
             <ion-text>{{ job }}</ion-text>
           </ion-item>
         </div>
