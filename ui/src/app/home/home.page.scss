@@ -28,6 +28,20 @@ ion-content {
         height: fit-content;
         text-align: center;
         padding: 25px;
+
+        ion-item {
+          display: flex;
+          align-items: center;
+
+          ion-input {
+            width: 80px;
+            margin: 10px;
+          }
+
+          .job-title {
+            text-align: left;
+          }
+        }
       }
 
       .image {

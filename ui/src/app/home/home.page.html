@@ -9,7 +9,7 @@
         <p>{{ dialogue }}</p>
         <ion-input
           *ngIf="showTextInput"
-          fill="outline"
+          fill="solid"
           type="text"
           (keydown.enter)="onButtonClick()"
           [(ngModel)]="inputText"
