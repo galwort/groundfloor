@@ -25,7 +25,8 @@ export class HomePage {
 
   constructor(private http: HttpClient) {}
 
-  onButtonClick() {
+  onButtonClick(event: Event): void {
+    event.preventDefault();
     switch (this.questionIndex) {
       case 0:
         this.dialogue = "What's your company's name?";

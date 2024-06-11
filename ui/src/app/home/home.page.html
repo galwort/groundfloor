@@ -28,7 +28,7 @@
           fill="solid"
           type="text"
           [autoGrow]="true"
-          (keydown.enter)="onButtonClick()"
+          (keydown.enter)="onButtonClick($event)"
           [(ngModel)]="inputText"
         ></ion-textarea>
         <div *ngIf="jobTitles.length > 0">
@@ -44,7 +44,10 @@
             <ion-text>{{ job }}</ion-text>
           </ion-item>
         </div>
-        <ion-button *ngIf="showButton" color="dark" (click)="onButtonClick()"
+        <ion-button
+          *ngIf="showButton"
+          color="dark"
+          (click)="onButtonClick($event)"
           >{{ buttonLabel }}</ion-button
         >
       </div>
