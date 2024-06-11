@@ -17,13 +17,14 @@
       <div class="supporting" *ngIf="showSupportingDetails"></div>
       <div class="main">
         <p>{{ dialogue }}</p>
-        <ion-input
+        <ion-textarea
           *ngIf="showTextInput"
           fill="solid"
           type="text"
+          [autoGrow]="true"
           (keydown.enter)="onButtonClick()"
           [(ngModel)]="inputText"
-        ></ion-input>
+        ></ion-textarea>
         <div *ngIf="jobTitles.length > 0">
           <ion-item *ngFor="let job of jobTitles">
             <ion-input
