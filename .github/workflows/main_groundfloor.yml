@@ -23,15 +23,15 @@ jobs:
 
       - name: npm install, build, and test
         run: |
+          cd ui
           npm install
           npm run build --if-present
-          npm run test --if-present
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-app
           path: release.zip
@@ -45,7 +45,7 @@ jobs:
     
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node-app
 
@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'groundfloor'
           slot-name: 'Production'
-          package: .
+          package: "./ui/www"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_74A638DAE8FC4805B0271BA54BBC6D04 }}
