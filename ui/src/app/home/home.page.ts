@@ -20,6 +20,7 @@ export class HomePage {
   companyDescription = 'nothing';
   list: string[] = [];
   selectedJobTitles: { [key: string]: number } = {};
+  skills: { name: string; level: number }[] = [];
 
   questionIndex = 0;
   dialogue =
@@ -61,6 +62,8 @@ export class HomePage {
         this.dialogue =
           'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
         this.list = [];
+        this.selectedJobTitles = {};
+        this.skills = [];
         this.questionIndex = -1;
         this.showTextInput = false;
         this.buttonLabel = 'Start';
@@ -111,9 +114,11 @@ export class HomePage {
 
     this.http.post<{ skills: string[] }>(url, body).subscribe(
       (response) => {
-        this.dialogue = `The skills required for ${jobTitle} are: ${response.skills.join(
-          ', '
-        )}`;
+        const skillsWithLevels = response.skills.map((skill) => {
+          const level = Math.floor(Math.random() * 10) + 1;
+          return `${skill} ${'■'.repeat(level)}`;
+        });
+        this.dialogue = `${skillsWithLevels.join('\n')}`;
         this.showButton = true;
         this.buttonLabel = 'Next';
       },
@@ -135,6 +140,8 @@ export class HomePage {
     this.companyName = 'your company';
     this.companyDescription = 'nothing';
     this.list = [];
+    this.selectedJobTitles = {};
+    this.skills = [];
     this.questionIndex = 0;
     this.dialogue =
       'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';

@@ -44,6 +44,14 @@ ion-content {
         max-width: min(85vw, 500px);
         padding: 25px;
 
+        pre.dialogue {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+        }
+
         ion-item {
           display: flex;
           align-items: center;
