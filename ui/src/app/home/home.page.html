@@ -2,6 +2,12 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-icon
+        *ngIf="questionIndex > 0"
+        name="refresh"
+        slot="start"
+        (click)="refresh()"
+      ></ion-icon>
+      <ion-icon
         name="logo-github"
         slot="end"
         alt="github"

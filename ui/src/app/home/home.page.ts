@@ -78,4 +78,16 @@ export class HomePage {
   openLink(link: string) {
     window.open(link, '_blank');
   }
+
+  refresh() {
+    this.companyName = 'your company';
+    this.companyDescription = '';
+    this.jobTitles = [];
+    this.questionIndex = 0;
+    this.dialogue =
+      'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
+    this.showTextInput = false;
+    this.showButton = true;
+    this.buttonLabel = 'Start';
+  }
 }
