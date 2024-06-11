@@ -1,6 +1,21 @@
 ion-content {
   --background: linear-gradient(to bottom right, black, #222);
 
+  ion-toolbar {
+    --background: transparent;
+    --color: white;
+    height: 8vh;
+
+    ion-icon {
+      font-size: 5vh;
+      padding: 1vh;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
   .centered {
     display: flex;
     align-items: center;
