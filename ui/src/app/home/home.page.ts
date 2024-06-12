@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   showImage = true;
   showSupportingDetails = false;
   showTextInput = false;
@@ -27,6 +27,22 @@ export class HomePage {
     'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
 
   constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.setVH();
+    window.addEventListener('resize', this.setVH);
+    window.addEventListener('orientationchange', this.setVH);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.setVH);
+    window.removeEventListener('orientationchange', this.setVH);
+  }
+
+  setVH = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
 
   onButtonClick(event: Event): void {
     event.preventDefault();

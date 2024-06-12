@@ -1,3 +1,7 @@
+:root {
+  --vh: 1vh;
+}
+
 ion-content {
   --background: linear-gradient(to bottom right, black, #222);
 
@@ -21,7 +25,7 @@ ion-content {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    height: 92vh;
+    height: calc(var(--vh, 1vh) * 90);
     padding: 2%;
 
     .content {
