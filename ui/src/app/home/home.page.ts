@@ -108,30 +108,51 @@ export class HomePage {
     this.generateJobSkills(jobTitle);
   }
 
-  generateJobSkills(jobTitle: string) {
+  fetchNames(): Promise<string[]> {
+    return this.http
+      .get('assets/names.txt', { responseType: 'text' })
+      .toPromise()
+      .then((data) => {
+        if (data) {
+          return data.split('\n').filter((name) => name.trim() !== '');
+        } else {
+          return [];
+        }
+      });
+  }
+
+  async generateJobSkills(jobTitle: string) {
     const url = 'https://fa-groundfloor.azurewebsites.net/api/skills';
     const body = { job_title: jobTitle };
 
-    this.http.post<{ skills: string[] }>(url, body).subscribe(
-      (response) => {
-        const maxSkillLength = Math.max(
-          ...response.skills.map((skill) => skill.length)
-        );
-        const skillsWithLevels = response.skills.map((skill) => {
-          const level = Math.floor(Math.random() * 10) + 1;
-          const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
-          return `${paddedSkill}${'■'.repeat(level)}`;
-        });
-        this.dialogue = `${skillsWithLevels.join('\n')}`;
-        this.showButton = true;
-        this.buttonLabel = 'Next';
-      },
-      (error) => {
-        console.error('Error generating job skills:', error);
-        this.dialogue =
-          'There was an error generating job skills. Please try again.';
-      }
-    );
+    try {
+      const names = await this.fetchNames();
+      const randomName = names[Math.floor(Math.random() * names.length)];
+
+      this.http.post<{ skills: string[] }>(url, body).subscribe(
+        (response) => {
+          const maxSkillLength = Math.max(
+            ...response.skills.map((skill) => skill.length)
+          );
+          const skillsWithLevels = response.skills.map((skill) => {
+            const level = Math.floor(Math.random() * 10) + 1;
+            const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
+            return `${paddedSkill}${'■'.repeat(level)}`;
+          });
+          this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
+          this.showButton = true;
+          this.buttonLabel = 'Next';
+        },
+        (error) => {
+          console.error('Error generating job skills:', error);
+          this.dialogue =
+            'There was an error generating job skills. Please try again.';
+        }
+      );
+    } catch (error) {
+      console.error('Error fetching names:', error);
+      this.dialogue = 'There was an error fetching names. Please try again.';
+    }
   }
 
   openLink(link: string) {
