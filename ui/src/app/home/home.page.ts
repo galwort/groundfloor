@@ -14,7 +14,7 @@ export class HomePage {
   showButton = true;
 
   buttonLabel = 'Start';
-  imageFilename = 'bricks';
+  imageFilename = 'assets/bricks.png';
   inputText = '';
   companyName = 'your company';
   companyDescription = 'nothing';
@@ -58,6 +58,7 @@ export class HomePage {
         break;
       case 4:
         this.showImage = true;
+        this.imageFilename = 'assets/bricks.png';
         this.showButton = true;
         this.dialogue =
           'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
@@ -140,6 +141,7 @@ export class HomePage {
             return `${paddedSkill}${'■'.repeat(level)}`;
           });
           this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
+          this.fetchRandomCandidateImage();
           this.showButton = true;
           this.buttonLabel = 'Next';
         },
@@ -153,6 +155,11 @@ export class HomePage {
       console.error('Error fetching names:', error);
       this.dialogue = 'There was an error fetching names. Please try again.';
     }
+  }
+
+  fetchRandomCandidateImage() {
+    this.imageFilename = 'https://thispersondoesnotexist.com';
+    this.showImage = true;
   }
 
   openLink(link: string) {

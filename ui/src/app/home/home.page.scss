@@ -69,10 +69,11 @@ ion-content {
       }
 
       .image {
-        padding: 0;
+        padding: 15px;
 
         img {
-          max-width: min(85vw, 500px);
+          max-height: min(85vw, 220px);
+          border-radius: 15px;
         }
       }
 
