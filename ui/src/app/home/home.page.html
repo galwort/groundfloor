@@ -31,7 +31,7 @@
           (keydown.enter)="onButtonClick($event)"
           [(ngModel)]="inputText"
         ></ion-textarea>
-        <div *ngIf="list.length > 0">
+        <div class="list" *ngIf="list.length > 0">
           <ion-item *ngFor="let item of list; let i = index">
             <ion-input
               *ngIf="showListInput"

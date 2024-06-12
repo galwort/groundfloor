@@ -78,8 +78,21 @@ ion-content {
       .main {
         max-width: 500px;
 
+        .list {
+          padding-top: 20px;
+        }
+
+        ion-item {
+          font-family: "Consolas", monospace;
+        }
+
+        ion-textarea {
+          padding-top: 20px;
+        }
+
         ion-button {
           padding-top: 20px;
+          font-weight: bold;
         }
       }
     }
