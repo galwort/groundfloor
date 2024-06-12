@@ -114,9 +114,13 @@ export class HomePage {
 
     this.http.post<{ skills: string[] }>(url, body).subscribe(
       (response) => {
+        const maxSkillLength = Math.max(
+          ...response.skills.map((skill) => skill.length)
+        );
         const skillsWithLevels = response.skills.map((skill) => {
           const level = Math.floor(Math.random() * 10) + 1;
-          return `${skill} ${'■'.repeat(level)}`;
+          const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
+          return `${paddedSkill}${'■'.repeat(level)}`;
         });
         this.dialogue = `${skillsWithLevels.join('\n')}`;
         this.showButton = true;
