@@ -73,6 +73,12 @@ export class HomePage implements OnInit {
         this.startInterviewProcess();
         break;
       case 4:
+        this.showImage = false;
+        this.dialogue = 'More content coming soon!';
+        this.showButton = true;
+        this.buttonLabel = 'Play Again';
+        break;
+      case 5:
         this.showImage = true;
         this.imageFilename = 'assets/bricks.png';
         this.showButton = true;
