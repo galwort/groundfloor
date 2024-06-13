@@ -108,6 +108,14 @@ export class HomePage implements OnInit {
     );
   }
 
+  onJobTitleChange(jobTitle: string, count: number) {
+    if (count > 0) {
+      this.selectedJobTitles[jobTitle] = count;
+    } else {
+      delete this.selectedJobTitles[jobTitle];
+    }
+  }
+
   collectJobTitles() {
     const inputs = document.querySelectorAll('ion-input[type="number"]');
     inputs.forEach((input: any, index) => {
@@ -115,6 +123,8 @@ export class HomePage implements OnInit {
       const count = parseInt(input.value, 10) || 0;
       if (count > 0) {
         this.selectedJobTitles[jobTitle] = count;
+      } else {
+        delete this.selectedJobTitles[jobTitle];
       }
     });
   }

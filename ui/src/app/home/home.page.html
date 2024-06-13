@@ -41,6 +41,7 @@
               min="0"
               max="100"
               [(ngModel)]="selectedJobTitles[item]"
+              (ngModelChange)="onJobTitleChange(item, $event)"
             ></ion-input>
             <ion-text>{{ item }}</ion-text>
           </ion-item>
