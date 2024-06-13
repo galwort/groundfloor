@@ -200,6 +200,7 @@ export class HomePage implements OnInit {
 
   refresh() {
     this.showImage = true;
+    this.imageFilename = 'assets/bricks.png';
     this.inputText = '';
     this.companyName = 'your company';
     this.companyDescription = 'nothing';
