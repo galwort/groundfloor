@@ -95,9 +95,12 @@ ion-content {
         }
 
         ion-textarea {
-          padding-top: 20px;
+          margin-top: 20px;
+          padding-left: 10px;
+          padding-right: 10px;
           font-family: "Consolas", monospace;
           border: solid 1px white;
+          border-radius: 5px;
         }
 
         ion-button {
