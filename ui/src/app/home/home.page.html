@@ -52,9 +52,9 @@
         >
       </div>
       <div class="supporting" *ngIf="showSupportingDetails">
-        <div *ngFor="let job of getObjectKeys(selectedJobTitles)">
-          {{ hiredCount[job] || 0 }} out of {{ selectedJobTitles[job] }} {{ job
-          }} hired
+        <div *ngIf="currentJobTitle">
+          {{ hiredCount[currentJobTitle] || 0 }} out of {{
+          selectedJobTitles[currentJobTitle] }} {{ currentJobTitle }} hired
         </div>
         <div *ngIf="showInterviewActions">
           <ion-button color="dark" (click)="hireCandidate()">Hire</ion-button>

@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
   companyDescription = 'nothing';
   list: string[] = [];
   selectedJobTitles: { [key: string]: number } = {};
+  currentJobTitle: string | null = null;
   hiredCount: { [key: string]: number } = {};
   skills: { name: string; level: number }[] = [];
 
@@ -155,11 +156,33 @@ export class HomePage implements OnInit {
       this.buttonLabel = 'Play Again';
       return;
     }
-    const jobTitle = Object.keys(this.selectedJobTitles)[
+    this.currentJobTitle = Object.keys(this.selectedJobTitles)[
       this.currentJobTitleIndex
     ];
-    this.dialogue = `Interviewing potential ${jobTitle}s...`;
-    this.generateJobSkills(jobTitle);
+    this.dialogue = `Interviewing potential ${this.currentJobTitle}s...`;
+    this.generateJobSkills(this.currentJobTitle);
+  }
+
+  hireCandidate() {
+    if (this.currentJobTitle) {
+      this.hiredCount[this.currentJobTitle] =
+        (this.hiredCount[this.currentJobTitle] || 0) + 1;
+      if (
+        this.hiredCount[this.currentJobTitle] ===
+        this.selectedJobTitles[this.currentJobTitle]
+      ) {
+        this.currentJobTitleIndex++;
+      }
+    }
+    this.showInterviewActions = false;
+    this.fetchRandomCandidateImage();
+    this.interviewNextJobTitle();
+  }
+
+  passCandidate() {
+    this.showInterviewActions = false;
+    this.fetchRandomCandidateImage();
+    this.interviewNextJobTitle();
   }
 
   fetchNames(): Promise<string[]> {
@@ -213,23 +236,6 @@ export class HomePage implements OnInit {
     const timestamp = new Date().getTime();
     this.imageFilename = `https://thispersondoesnotexist.com?t=${timestamp}`;
     this.showImage = true;
-  }
-
-  hireCandidate() {
-    const jobTitle = Object.keys(this.selectedJobTitles)[
-      this.currentJobTitleIndex
-    ];
-    this.hiredCount[jobTitle] = (this.hiredCount[jobTitle] || 0) + 1;
-    if (this.hiredCount[jobTitle] === this.selectedJobTitles[jobTitle]) {
-      this.currentJobTitleIndex++;
-    }
-    this.showInterviewActions = false;
-    this.interviewNextJobTitle();
-  }
-
-  passCandidate() {
-    this.showInterviewActions = false;
-    this.interviewNextJobTitle();
   }
 
   getObjectKeys(obj: { [key: string]: any }): string[] {
