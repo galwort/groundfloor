@@ -5,6 +5,9 @@
 ion-content {
   --background: linear-gradient(to bottom right, black, #222);
   color: red;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
   ion-toolbar {
     --background: transparent;
@@ -24,10 +27,16 @@ ion-content {
   .centered {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    height: calc(var(--vh, 1vh) * 90);
+    flex-grow: 1;
     padding: 2%;
+    height: calc(100vh - 8vh);
+
+    &.list-displayed {
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
 
     .content {
       background-color: transparent;
@@ -36,6 +45,8 @@ ion-content {
       align-items: center;
       gap: 20px;
       padding: 40px;
+      width: 100%;
+      overflow-y: auto;
 
       .image,
       .supporting,
@@ -44,10 +55,9 @@ ion-content {
         background-color: #222;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         width: fit-content;
-        height: fit-content;
-        text-align: center;
         max-width: min(85vw, 500px);
         padding: 25px;
+        text-align: center;
 
         pre.dialogue {
           white-space: pre-wrap;

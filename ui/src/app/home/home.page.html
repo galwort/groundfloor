@@ -15,7 +15,7 @@
       ></ion-icon>
     </ion-toolbar>
   </ion-header>
-  <div class="centered">
+  <div class="centered" [class.list-displayed]="list.length > 0">
     <div class="content">
       <div class="image" *ngIf="showImage">
         <img [src]="imageFilename" />
