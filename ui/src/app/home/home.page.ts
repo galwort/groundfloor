@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
   currentJobTitle: string | null = null;
   hiredCount: { [key: string]: number } = {};
   skills: { name: string; level: number }[] = [];
+  generatedSkills: { [key: string]: string[] } = {};
 
   questionIndex = 0;
   dialogue =
@@ -198,37 +199,44 @@ export class HomePage implements OnInit {
       });
   }
 
+  displayCandidateDetails(jobTitle: string, skills: string[]) {
+    const maxSkillLength = Math.max(...skills.map((skill) => skill.length));
+    const skillsWithLevels = skills.map((skill) => {
+      const level = Math.floor(Math.random() * 10) + 1;
+      const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
+      return `${paddedSkill}${'■'.repeat(level)}`;
+    });
+    this.dialogue = `${jobTitle}\n\n${skillsWithLevels.join('\n')}`;
+    this.fetchRandomCandidateImage();
+    this.showInterviewActions = true;
+  }
+
   async generateJobSkills(jobTitle: string) {
-    const url = 'https://fa-groundfloor.azurewebsites.net/api/skills';
-    const body = { job_title: jobTitle };
+    if (this.generatedSkills[jobTitle]) {
+      this.displayCandidateDetails(jobTitle, this.generatedSkills[jobTitle]);
+    } else {
+      const url = 'https://fa-groundfloor.azurewebsites.net/api/skills';
+      const body = { job_title: jobTitle };
 
-    try {
-      const names = await this.fetchNames();
-      const randomName = names[Math.floor(Math.random() * names.length)];
+      try {
+        const names = await this.fetchNames();
+        const randomName = names[Math.floor(Math.random() * names.length)];
 
-      this.http.post<{ skills: string[] }>(url, body).subscribe(
-        (response) => {
-          const maxSkillLength = Math.max(
-            ...response.skills.map((skill) => skill.length)
-          );
-          const skillsWithLevels = response.skills.map((skill) => {
-            const level = Math.floor(Math.random() * 10) + 1;
-            const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
-            return `${paddedSkill}${'■'.repeat(level)}`;
-          });
-          this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
-          this.fetchRandomCandidateImage();
-          this.showInterviewActions = true;
-        },
-        (error) => {
-          console.error('Error generating job skills:', error);
-          this.dialogue =
-            'There was an error generating job skills. Please try again.';
-        }
-      );
-    } catch (error) {
-      console.error('Error fetching names:', error);
-      this.dialogue = 'There was an error fetching names. Please try again.';
+        this.http.post<{ skills: string[] }>(url, body).subscribe(
+          (response) => {
+            this.generatedSkills[jobTitle] = response.skills;
+            this.displayCandidateDetails(jobTitle, response.skills);
+          },
+          (error) => {
+            console.error('Error generating job skills:', error);
+            this.dialogue =
+              'There was an error generating job skills. Please try again.';
+          }
+        );
+      } catch (error) {
+        console.error('Error fetching names:', error);
+        this.dialogue = 'There was an error fetching names. Please try again.';
+      }
     }
   }
 
