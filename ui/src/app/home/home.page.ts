@@ -12,6 +12,7 @@ export class HomePage implements OnInit {
   showTextInput = false;
   showListInput = true;
   showButton = true;
+  showInterviewActions = false;
 
   buttonLabel = 'Start';
   imageFilename = 'assets/bricks.png';
@@ -20,11 +21,13 @@ export class HomePage implements OnInit {
   companyDescription = 'nothing';
   list: string[] = [];
   selectedJobTitles: { [key: string]: number } = {};
+  hiredCount: { [key: string]: number } = {};
   skills: { name: string; level: number }[] = [];
 
   questionIndex = 0;
   dialogue =
     'Ground Floor is a Sims like game for building your own company that uses LLMs to generate elements of the game.';
+  currentJobTitleIndex = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -133,10 +136,28 @@ export class HomePage implements OnInit {
         delete this.selectedJobTitles[jobTitle];
       }
     });
+    this.showSupportingDetails = true;
   }
 
   startInterviewProcess() {
-    const jobTitle = Object.keys(this.selectedJobTitles)[0];
+    this.currentJobTitleIndex = 0;
+    this.interviewNextJobTitle();
+  }
+
+  interviewNextJobTitle() {
+    if (
+      this.currentJobTitleIndex >= Object.keys(this.selectedJobTitles).length
+    ) {
+      this.dialogue = 'More content coming soon!';
+      this.showSupportingDetails = false;
+      this.showImage = false;
+      this.showButton = true;
+      this.buttonLabel = 'Play Again';
+      return;
+    }
+    const jobTitle = Object.keys(this.selectedJobTitles)[
+      this.currentJobTitleIndex
+    ];
     this.dialogue = `Interviewing potential ${jobTitle}s...`;
     this.generateJobSkills(jobTitle);
   }
@@ -174,8 +195,7 @@ export class HomePage implements OnInit {
           });
           this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
           this.fetchRandomCandidateImage();
-          this.showButton = true;
-          this.buttonLabel = 'Next';
+          this.showInterviewActions = true;
         },
         (error) => {
           console.error('Error generating job skills:', error);
@@ -194,6 +214,27 @@ export class HomePage implements OnInit {
     this.showImage = true;
   }
 
+  hireCandidate() {
+    const jobTitle = Object.keys(this.selectedJobTitles)[
+      this.currentJobTitleIndex
+    ];
+    this.hiredCount[jobTitle] = (this.hiredCount[jobTitle] || 0) + 1;
+    if (this.hiredCount[jobTitle] === this.selectedJobTitles[jobTitle]) {
+      this.currentJobTitleIndex++;
+    }
+    this.showInterviewActions = false;
+    this.interviewNextJobTitle();
+  }
+
+  passCandidate() {
+    this.showInterviewActions = false;
+    this.interviewNextJobTitle();
+  }
+
+  getObjectKeys(obj: { [key: string]: any }): string[] {
+    return Object.keys(obj);
+  }
+
   openLink(link: string) {
     window.open(link, '_blank');
   }
@@ -206,6 +247,7 @@ export class HomePage implements OnInit {
     this.companyDescription = 'nothing';
     this.list = [];
     this.selectedJobTitles = {};
+    this.hiredCount = {};
     this.skills = [];
     this.questionIndex = 0;
     this.dialogue =

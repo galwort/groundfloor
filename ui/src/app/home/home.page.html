@@ -20,7 +20,6 @@
       <div class="image" *ngIf="showImage">
         <img [src]="imageFilename" />
       </div>
-      <div class="supporting" *ngIf="showSupportingDetails"></div>
       <div class="main">
         <pre class="dialogue">{{ dialogue }}</pre>
         <ion-textarea
@@ -51,6 +50,16 @@
           (click)="onButtonClick($event)"
           >{{ buttonLabel }}</ion-button
         >
+      </div>
+      <div class="supporting" *ngIf="showSupportingDetails">
+        <div *ngFor="let job of getObjectKeys(selectedJobTitles)">
+          {{ hiredCount[job] || 0 }} out of {{ selectedJobTitles[job] }} {{ job
+          }} hired
+        </div>
+        <div *ngIf="showInterviewActions">
+          <ion-button color="dark" (click)="hireCandidate()">Hire</ion-button>
+          <ion-button color="dark" (click)="passCandidate()">Pass</ion-button>
+        </div>
       </div>
     </div>
   </div>
