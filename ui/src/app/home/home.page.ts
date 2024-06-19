@@ -210,7 +210,8 @@ export class HomePage implements OnInit {
   }
 
   fetchRandomCandidateImage() {
-    this.imageFilename = 'https://thispersondoesnotexist.com';
+    const timestamp = new Date().getTime();
+    this.imageFilename = `https://thispersondoesnotexist.com?t=${timestamp}`;
     this.showImage = true;
   }
 
