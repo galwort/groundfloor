@@ -56,30 +56,6 @@ ion-content {
         max-width: min(85vw, 500px);
         padding: 25px;
         text-align: center;
-
-        pre.dialogue {
-          white-space: pre-wrap;
-          word-wrap: break-word;
-          text-align: left;
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
-          color: white;
-        }
-
-        ion-item {
-          display: flex;
-          align-items: center;
-
-          ion-input {
-            width: 80px;
-            margin: 10px;
-          }
-
-          .job-title {
-            text-align: left;
-          }
-        }
       }
 
       .image {
@@ -96,6 +72,20 @@ ion-content {
 
         .list {
           padding-top: 20px;
+
+          ion-item {
+            display: flex;
+            align-items: center;
+
+            ion-input {
+              width: 80px;
+              margin: 10px;
+            }
+
+            .job-title {
+              text-align: left;
+            }
+          }
         }
 
         ion-item {
@@ -114,6 +104,16 @@ ion-content {
         ion-button {
           padding-top: 20px;
           font-weight: bold;
+        }
+
+        pre.dialogue {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          text-align: left;
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+          color: white;
         }
       }
     }
