@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+interface Candidate {
+  name: string;
+  jobTitle: string;
+  skills: { [key: string]: number };
+  personality: string | null;
+  salary: number | null;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -27,6 +35,7 @@ export class HomePage implements OnInit {
   generatedSkills: { [key: string]: string[] } = {};
   salary: number | null = null;
   dialogueWithoutSalary: string = '';
+  currentCandidate: Candidate | null = null;
 
   questionIndex = 0;
   dialogue =
@@ -166,6 +175,10 @@ export class HomePage implements OnInit {
     this.generateJobSkills(this.currentJobTitle);
   }
 
+  resetCandidateInfo() {
+    this.currentCandidate = null;
+  }
+
   hireCandidate() {
     if (this.currentJobTitle) {
       this.hiredCount[this.currentJobTitle] =
@@ -180,6 +193,7 @@ export class HomePage implements OnInit {
     this.showInterviewActions = false;
     this.fetchRandomCandidateImage();
     this.resetSalaryInfo();
+    this.resetCandidateInfo();
     this.interviewNextJobTitle();
   }
 
@@ -187,6 +201,7 @@ export class HomePage implements OnInit {
     this.showInterviewActions = false;
     this.fetchRandomCandidateImage();
     this.resetSalaryInfo();
+    this.resetCandidateInfo();
     this.interviewNextJobTitle();
   }
 
@@ -207,57 +222,105 @@ export class HomePage implements OnInit {
         }
       });
   }
+
   async displayCandidateDetails(jobTitle: string, skills: string[]) {
     try {
       const names = await this.fetchNames();
       const randomName = names[Math.floor(Math.random() * names.length)];
 
-      const maxSkillLength = Math.max(...skills.map((skill) => skill.length));
-      const skillsWithLevels = skills.map((skill) => {
-        const level = Math.floor(Math.random() * 10) + 1;
-        const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
-        return `${paddedSkill}${'■'.repeat(level)}`;
-      });
-
       const skillsObject: { [key: string]: number } = {};
-      skillsWithLevels.forEach((skillWithLevel) => {
-        const [skill, levelString] = skillWithLevel.trim().split(/\s+/);
-        skillsObject[skill] = levelString.length;
+      skills.forEach((skill) => {
+        skillsObject[skill] = Math.floor(Math.random() * 10) + 1;
       });
 
-      this.dialogueWithoutSalary = `${randomName}\n\n${skillsWithLevels.join(
-        '\n'
-      )}`;
+      this.currentCandidate = {
+        name: randomName,
+        jobTitle: jobTitle,
+        skills: skillsObject,
+        personality: null,
+        salary: null,
+      };
 
-      this.dialogue = this.dialogueWithoutSalary;
-
-      this.fetchSalary(jobTitle, skillsObject);
-
+      this.updateDialogue();
+      this.fetchPersonality();
+      this.fetchSalary();
       this.fetchRandomCandidateImage();
       this.showInterviewActions = true;
     } catch (error) {
-      console.error('Error fetching names:', error);
-      this.dialogue = 'There was an error fetching names. Please try again.';
+      console.error('Error creating candidate:', error);
+      this.dialogue =
+        'There was an error creating the candidate. Please try again.';
     }
   }
 
-  fetchSalary(jobTitle: string, skills: { [key: string]: number }) {
+  fetchPersonality() {
+    if (!this.currentCandidate) return;
+
+    const url = 'https://fa-groundfloor.azurewebsites.net/api/personalities';
+    const body = { name: this.currentCandidate.name };
+
+    this.http.post<{ personality: string }>(url, body).subscribe(
+      (response) => {
+        if (this.currentCandidate) {
+          this.currentCandidate.personality = response.personality;
+          this.updateDialogue();
+        }
+      },
+      (error) => {
+        console.error('Error fetching personality:', error);
+        if (this.currentCandidate) {
+          this.currentCandidate.personality = null;
+          this.updateDialogue();
+        }
+      }
+    );
+  }
+
+  fetchSalary() {
+    if (!this.currentCandidate) return;
+
     const url = 'https://fa-groundfloor.azurewebsites.net/api/salaries';
-    const body = { job_title: jobTitle, skills: skills };
+    const body = {
+      job_title: this.currentCandidate.jobTitle,
+      skills: this.currentCandidate.skills,
+    };
 
     this.http.post<{ salary: number }>(url, body).subscribe(
       (response) => {
-        this.salary = response.salary;
-        this.dialogue = `${
-          this.dialogueWithoutSalary
-        }\n\nEstimated Salary: $${this.salary.toLocaleString()}`;
+        if (this.currentCandidate) {
+          this.currentCandidate.salary = response.salary;
+          this.updateDialogue();
+        }
       },
       (error) => {
         console.error('Error fetching salary:', error);
-        this.salary = null;
-        this.dialogue = `${this.dialogueWithoutSalary}\n\nUnable to estimate salary.`;
+        if (this.currentCandidate) {
+          this.currentCandidate.salary = null;
+          this.updateDialogue();
+        }
       }
     );
+  }
+
+  updateDialogue() {
+    if (!this.currentCandidate) {
+      this.dialogue = 'No candidate information available.';
+      return;
+    }
+
+    const skillsDisplay = Object.entries(this.currentCandidate.skills)
+      .map(([skill, level]) => `${skill.padEnd(20)}${'■'.repeat(level)}`)
+      .join('\n');
+
+    this.dialogue = `${this.currentCandidate.name}\n\n${skillsDisplay}`;
+
+    if (this.currentCandidate.personality) {
+      this.dialogue += `\n\nPersonality: ${this.currentCandidate.personality}`;
+    }
+
+    if (this.currentCandidate.salary !== null) {
+      this.dialogue += `\n\nEstimated Salary: $${this.currentCandidate.salary.toLocaleString()}`;
+    }
   }
 
   async generateJobSkills(jobTitle: string) {
