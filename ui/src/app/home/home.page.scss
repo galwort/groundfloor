@@ -36,6 +36,13 @@ ion-content {
       justify-content: flex-start;
     }
 
+    ion-button {
+      padding-top: 20px;
+      font-weight: bold;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
     .content {
       background-color: transparent;
       display: flex;
@@ -99,11 +106,6 @@ ion-content {
           font-family: "Consolas", monospace;
           border: solid 1px white;
           border-radius: 5px;
-        }
-
-        ion-button {
-          padding-top: 20px;
-          font-weight: bold;
         }
 
         pre.dialogue {
