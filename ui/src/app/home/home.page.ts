@@ -199,16 +199,24 @@ export class HomePage implements OnInit {
       });
   }
 
-  displayCandidateDetails(jobTitle: string, skills: string[]) {
-    const maxSkillLength = Math.max(...skills.map((skill) => skill.length));
-    const skillsWithLevels = skills.map((skill) => {
-      const level = Math.floor(Math.random() * 10) + 1;
-      const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
-      return `${paddedSkill}${'■'.repeat(level)}`;
-    });
-    this.dialogue = `${jobTitle}\n\n${skillsWithLevels.join('\n')}`;
-    this.fetchRandomCandidateImage();
-    this.showInterviewActions = true;
+  async displayCandidateDetails(jobTitle: string, skills: string[]) {
+    try {
+      const names = await this.fetchNames();
+      const randomName = names[Math.floor(Math.random() * names.length)];
+
+      const maxSkillLength = Math.max(...skills.map((skill) => skill.length));
+      const skillsWithLevels = skills.map((skill) => {
+        const level = Math.floor(Math.random() * 10) + 1;
+        const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
+        return `${paddedSkill}${'■'.repeat(level)}`;
+      });
+      this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
+      this.fetchRandomCandidateImage();
+      this.showInterviewActions = true;
+    } catch (error) {
+      console.error('Error fetching names:', error);
+      this.dialogue = 'There was an error fetching names. Please try again.';
+    }
   }
 
   async generateJobSkills(jobTitle: string) {
