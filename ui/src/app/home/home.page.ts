@@ -315,11 +315,11 @@ export class HomePage implements OnInit {
     this.dialogue = `${this.currentCandidate.name}\n\n${skillsDisplay}`;
 
     if (this.currentCandidate.personality) {
-      this.dialogue += `\n\nPersonality: ${this.currentCandidate.personality}`;
+      this.dialogue += `\n\n${this.currentCandidate.personality}`;
     }
 
     if (this.currentCandidate.salary !== null) {
-      this.dialogue += `\n\nEstimated Salary: $${this.currentCandidate.salary.toLocaleString()}`;
+      this.dialogue += `\n\nSalary: $${this.currentCandidate.salary.toLocaleString()}`;
     }
   }
 
