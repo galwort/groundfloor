@@ -13,17 +13,17 @@ Ground Floor is a simulation game that allows you to create and manage a company
    <p style="margin-left: 20px;">a. Five skills are generated for each unique job role</p>
    <p style="margin-left: 20px;">b. Skill levels are randomly generated from 1 to 10 for each skill</p>
    <p style="margin-left: 20px;">c. A randomly generated picture is pulled from thispersondoesnotexist.com</p>
-   <p style="margin-left: 20px;">d. A salary is generated based on the position and skill levels 🛠️</p>
+   <p style="margin-left: 20px;">d. A salary is generated based on the position and skill levels</p>
    <p style="margin-left: 20px;">e. A personality is generated for each profile</p>
 
 6. **A business plan is developed**
 
-   <p style="margin-left: 20px;">a. The hired employees enter a "boardroom" to discuss and develop a business plan for the company</p>
+   <p style="margin-left: 20px;">a. The hired employees enter a "boardroom" to discuss and develop a business plan for the company 🛠️</p>
    <p style="margin-left: 20px;">b. Each employee is assigned an LLM agent, influenced by their personality and skill levels</p>
    <p style="margin-left: 20px;">c. A calculation determines how much each person talks during meetings. For example, a CEO with an assertive personality might talk 60% of the time, while a developer with a timid personality might only talk 10% of the time</p>
    <p style="margin-left: 20px;">d. The conversation proceeds with turns determined by the talk ratio, simulating a real boardroom discussion, ending with a decision on a business plan</p>
 <br>
-The gameplay plan is still being built out. Development is currently at step 5d.
+The gameplay plan is still being built out. Development is currently at step 6a.
 
 ## Tools used
 
