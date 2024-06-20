@@ -13,7 +13,7 @@ Ground Floor is a simulation game that allows you to create and manage a company
    <p style="margin-left: 20px;">a. Five skills are generated for each unique job role</p>
    <p style="margin-left: 20px;">b. Skill levels are randomly generated from 1 to 10 for each skill</p>
    <p style="margin-left: 20px;">c. A randomly generated picture is pulled from thispersondoesnotexist.com</p>
-   <p style="margin-left: 20px; color: #DAA520;">d. A salary is generated based on the position and skill levels</p>
+   <p style="margin-left: 20px;">d. A salary is generated based on the position and skill levels 🛠️</p>
    <p style="margin-left: 20px;">e. A personality is generated for each profile</p>
 
 6. **A business plan is developed**
