@@ -25,6 +25,7 @@ export class HomePage implements OnInit {
   hiredCount: { [key: string]: number } = {};
   skills: { name: string; level: number }[] = [];
   generatedSkills: { [key: string]: string[] } = {};
+  salary: number | null = null;
 
   questionIndex = 0;
   dialogue =
@@ -210,13 +211,41 @@ export class HomePage implements OnInit {
         const paddedSkill = skill.padEnd(maxSkillLength + 2, ' ');
         return `${paddedSkill}${'■'.repeat(level)}`;
       });
+
+      const skillsObject: { [key: string]: number } = {};
+      skillsWithLevels.forEach((skillWithLevel) => {
+        const [skill, levelString] = skillWithLevel.trim().split(/\s+/);
+        skillsObject[skill] = levelString.length;
+      });
+
+      this.fetchSalary(jobTitle, skillsObject);
+
       this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
+      if (this.salary !== null) {
+        this.dialogue += `\n\nSalary: $${this.salary.toLocaleString()}`;
+      }
       this.fetchRandomCandidateImage();
       this.showInterviewActions = true;
     } catch (error) {
       console.error('Error fetching names:', error);
       this.dialogue = 'There was an error fetching names. Please try again.';
     }
+  }
+
+  fetchSalary(jobTitle: string, skills: { [key: string]: number }) {
+    const url = 'https://fa-groundfloor.azurewebsites.net/api/salaries';
+    const body = { job_title: jobTitle, skills: skills };
+
+    this.http.post<{ salary: number }>(url, body).subscribe(
+      (response) => {
+        this.salary = response.salary;
+        this.dialogue += `\n\nEstimated Salary: $${this.salary.toLocaleString()}`;
+      },
+      (error) => {
+        console.error('Error fetching salary:', error);
+        this.salary = null;
+      }
+    );
   }
 
   async generateJobSkills(jobTitle: string) {
