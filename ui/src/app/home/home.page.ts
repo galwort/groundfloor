@@ -239,7 +239,7 @@ export class HomePage implements OnInit {
     this.http.post<{ salary: number }>(url, body).subscribe(
       (response) => {
         this.salary = response.salary;
-        this.dialogue += `\n\nEstimated Salary: $${this.salary.toLocaleString()}`;
+        this.dialogue += `\n\nSalary: $${this.salary.toLocaleString()}`;
       },
       (error) => {
         console.error('Error fetching salary:', error);
