@@ -63,6 +63,7 @@ ion-content {
         max-width: min(85vw, 500px);
         padding: 25px;
         text-align: center;
+        font-family: "Consolas", monospace;
       }
 
       .image {
@@ -93,10 +94,6 @@ ion-content {
               text-align: left;
             }
           }
-        }
-
-        ion-item {
-          font-family: "Consolas", monospace;
         }
 
         ion-textarea {
