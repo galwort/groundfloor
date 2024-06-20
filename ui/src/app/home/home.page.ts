@@ -312,7 +312,7 @@ export class HomePage implements OnInit {
       .map(([skill, level]) => `${skill.padEnd(20)}${'■'.repeat(level)}`)
       .join('\n');
 
-    this.dialogue = `${this.currentCandidate.name}\n\n${skillsDisplay}`;
+    this.dialogue = `${this.currentCandidate.name.toUpperCase()}\n\n${skillsDisplay}`;
 
     if (this.currentCandidate.personality) {
       this.dialogue += `\n\n${this.currentCandidate.personality}`;
