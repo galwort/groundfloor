@@ -22,5 +22,14 @@ Ground Floor is a simulation game that allows you to create and manage a company
    <p style="margin-left: 20px;">b. Each employee is assigned an LLM agent, influenced by their personality and skill levels</p>
    <p style="margin-left: 20px;">c. A calculation determines how much each person talks during meetings. For example, a CEO with an assertive personality might talk 60% of the time, while a developer with a timid personality might only talk 10% of the time</p>
    <p style="margin-left: 20px;">d. The conversation proceeds with turns determined by the talk ratio, simulating a real boardroom discussion, ending with a decision on a business plan</p>
-
+<br>
 The gameplay plan is still being built out. Development is currently at step 5d.
+
+## Tools used
+
+- **Frontend language**: TypeScript ⌨️
+- **Frontend framework**: Angular 🅰️
+- **Backend language**: Python 🐍
+- **Language model**: GPT-4o 🧠
+- **Hosting**: Azure ☁️
+- **CDN**: Cloudflare 🌐
