@@ -26,6 +26,7 @@ export class HomePage implements OnInit {
   skills: { name: string; level: number }[] = [];
   generatedSkills: { [key: string]: string[] } = {};
   salary: number | null = null;
+  dialogueWithoutSalary: string = '';
 
   questionIndex = 0;
   dialogue =
@@ -178,13 +179,20 @@ export class HomePage implements OnInit {
     }
     this.showInterviewActions = false;
     this.fetchRandomCandidateImage();
+    this.resetSalaryInfo();
     this.interviewNextJobTitle();
   }
 
   passCandidate() {
     this.showInterviewActions = false;
     this.fetchRandomCandidateImage();
+    this.resetSalaryInfo();
     this.interviewNextJobTitle();
+  }
+
+  resetSalaryInfo() {
+    this.salary = null;
+    this.dialogueWithoutSalary = '';
   }
 
   fetchNames(): Promise<string[]> {
@@ -199,7 +207,6 @@ export class HomePage implements OnInit {
         }
       });
   }
-
   async displayCandidateDetails(jobTitle: string, skills: string[]) {
     try {
       const names = await this.fetchNames();
@@ -218,12 +225,14 @@ export class HomePage implements OnInit {
         skillsObject[skill] = levelString.length;
       });
 
+      this.dialogueWithoutSalary = `${randomName}\n\n${skillsWithLevels.join(
+        '\n'
+      )}`;
+
+      this.dialogue = this.dialogueWithoutSalary;
+
       this.fetchSalary(jobTitle, skillsObject);
 
-      this.dialogue = `${randomName}\n\n${skillsWithLevels.join('\n')}`;
-      if (this.salary !== null) {
-        this.dialogue += `\n\nSalary: $${this.salary.toLocaleString()}`;
-      }
       this.fetchRandomCandidateImage();
       this.showInterviewActions = true;
     } catch (error) {
@@ -239,11 +248,14 @@ export class HomePage implements OnInit {
     this.http.post<{ salary: number }>(url, body).subscribe(
       (response) => {
         this.salary = response.salary;
-        this.dialogue += `\n\nSalary: $${this.salary.toLocaleString()}`;
+        this.dialogue = `${
+          this.dialogueWithoutSalary
+        }\n\nEstimated Salary: $${this.salary.toLocaleString()}`;
       },
       (error) => {
         console.error('Error fetching salary:', error);
         this.salary = null;
+        this.dialogue = `${this.dialogueWithoutSalary}\n\nUnable to estimate salary.`;
       }
     );
   }
