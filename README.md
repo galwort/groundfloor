@@ -23,7 +23,7 @@ Ground Floor is a simulation game that allows you to create and manage a company
    <p style="margin-left: 20px;">c. A calculation determines how much each person talks during meetings. For example, a CEO with an assertive personality might talk 60% of the time, while a developer with a timid personality might only talk 10% of the time</p>
    <p style="margin-left: 20px;">d. The conversation proceeds with turns determined by the talk ratio, simulating a real boardroom discussion, ending with a decision on a business plan</p>
 <br>
-The gameplay plan is still being built out. Development is currently at step 6a.
+🛠️ The gameplay plan is still being built out. Development is currently at step 6a.
 
 ## Tools used
 
