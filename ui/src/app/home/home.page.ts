@@ -149,7 +149,6 @@ export class HomePage implements OnInit {
         delete this.selectedJobTitles[jobTitle];
       }
     });
-    this.showSupportingDetails = true;
   }
 
   startInterviewProcess() {
@@ -241,6 +240,7 @@ export class HomePage implements OnInit {
         salary: null,
       };
 
+      this.showSupportingDetails = true;
       this.updateDialogue();
       this.fetchPersonality();
       this.fetchSalary();
