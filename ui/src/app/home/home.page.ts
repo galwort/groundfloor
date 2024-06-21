@@ -382,5 +382,6 @@ export class HomePage implements OnInit {
     this.showTextInput = false;
     this.showButton = true;
     this.buttonLabel = 'Start';
+    this.showSupportingDetails = false;
   }
 }
