@@ -15,6 +15,7 @@ def gen_personality(name):
         "You are a personality generator. When given the name of a person, "
         + "your task is to reply with a short, concise description of their personality. "
         + "The description should be no more than a couple of sentences. "
+        + "Do not assume the gender of the person. "
         + "Reply in JSON format with the word 'personality' as the key, "
         + "and the description as the value."
     )
