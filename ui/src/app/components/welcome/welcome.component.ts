@@ -5,10 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
 })
-export class WelcomeComponent  implements OnInit {
-
-  constructor() { }
+export class WelcomeComponent implements OnInit {
+  constructor() {}
 
   ngOnInit() {}
 
+  onSubmit() {
+    console.log('Welcome to the app!');
+  }
 }

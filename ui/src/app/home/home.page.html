@@ -2,7 +2,7 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-icon
-        *ngIf="currentPhase !== 'companyName'"
+        *ngIf="currentPhase !== 'welcome'"
         name="refresh"
         slot="start"
         (click)="refresh()"
@@ -18,7 +18,7 @@
   <div class="centered">
     <ng-container [ngSwitch]="currentPhase">
       <app-company-name
-        *ngSwitchCase="'companyName'"
+        *ngSwitchCase="'welcome'"
         (nameSubmitted)="onCompanyNameSubmitted($event)"
       ></app-company-name>
     </ng-container>
