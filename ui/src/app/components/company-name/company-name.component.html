@@ -1,8 +1,10 @@
-<div>
-  <h2>What's your company's name?</h2>
-  <ion-textarea
-    [(ngModel)]="companyName"
-    (keydown.enter)="onSubmit()"
-  ></ion-textarea>
-  <ion-button (click)="onSubmit()">Next</ion-button>
+<div class="content">
+  <div class="main">
+    <h5>What's your company's name?</h5>
+    <ion-textarea
+      [(ngModel)]="companyName"
+      (keydown.enter)="onSubmit()"
+    ></ion-textarea>
+    <ion-button color="dark" (click)="onSubmit()">Next</ion-button>
+  </div>
 </div>
