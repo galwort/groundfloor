@@ -2,7 +2,7 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-icon
-        *ngIf="questionIndex > 0"
+        *ngIf="currentPhase !== 'companyName'"
         name="refresh"
         slot="start"
         (click)="refresh()"
@@ -15,52 +15,12 @@
       ></ion-icon>
     </ion-toolbar>
   </ion-header>
-  <div class="centered" [class.list-displayed]="list.length > 0">
-    <div class="content">
-      <div class="image" *ngIf="showImage">
-        <img [src]="imageFilename" />
-      </div>
-      <div class="main">
-        <pre class="dialogue">{{ dialogue }}</pre>
-        <ion-textarea
-          *ngIf="showTextInput"
-          type="text"
-          [autoGrow]="true"
-          (keydown.enter)="onButtonClick($event)"
-          [(ngModel)]="inputText"
-        ></ion-textarea>
-        <div class="list" *ngIf="list.length > 0">
-          <ion-item *ngFor="let item of list; let i = index">
-            <ion-input
-              *ngIf="showListInput"
-              fill="outline"
-              type="number"
-              placeholder="0"
-              min="0"
-              max="100"
-              [(ngModel)]="selectedJobTitles[item]"
-              (ngModelChange)="onJobTitleChange(item, $event)"
-            ></ion-input>
-            <ion-text>{{ item }}</ion-text>
-          </ion-item>
-        </div>
-        <ion-button
-          *ngIf="showButton"
-          color="dark"
-          (click)="onButtonClick($event)"
-          >{{ buttonLabel }}</ion-button
-        >
-      </div>
-      <div class="supporting" *ngIf="showSupportingDetails">
-        <div *ngIf="currentJobTitle">
-          {{ hiredCount[currentJobTitle] || 0 }} out of {{
-          selectedJobTitles[currentJobTitle] }} {{ currentJobTitle }} hired
-        </div>
-        <div *ngIf="showInterviewActions">
-          <ion-button color="dark" (click)="hireCandidate()">Hire</ion-button>
-          <ion-button color="dark" (click)="passCandidate()">Pass</ion-button>
-        </div>
-      </div>
-    </div>
+  <div class="centered">
+    <ng-container [ngSwitch]="currentPhase">
+      <app-company-name
+        *ngSwitchCase="'companyName'"
+        (nameSubmitted)="onCompanyNameSubmitted($event)"
+      ></app-company-name>
+    </ng-container>
   </div>
 </ion-content>

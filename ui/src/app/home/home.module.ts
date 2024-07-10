@@ -7,12 +7,13 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-
 import { HomePageRoutingModule } from './home-routing.module';
+
+import { CompanyNameComponent } from '../components/company-name/company-name.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
-  declarations: [HomePage],
+  declarations: [HomePage, CompanyNameComponent],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class HomePageModule {}
